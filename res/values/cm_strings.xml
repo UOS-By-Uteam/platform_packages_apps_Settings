@@ -335,6 +335,9 @@
     <!-- NFC PreferenceCategory title -->
     <string name="nfc_title_category">NFC</string>
 
+    <!-- CM Legal -->
+    <string name="cmlicense_title">CyanogenMod legal</string>
+
     <!-- Allow vibration in zen mode -->
     <string name="zen_mode_vibration">Vibration</string>
     <string name="zen_mode_vibration_never">Don\'t vibrate</string>
