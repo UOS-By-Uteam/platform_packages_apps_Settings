@@ -359,4 +359,16 @@
     <string name="sim_card_summary_empty">SIM not inserted</string>
     <string name="sim_mobile_network_settings_category_title">Mobile network settings</string>
     <string name="sim_mobile_network_settings_title">SIM %d settings</string>
+
+    <!-- CM Legal -->
+    <string name="cmlicense_title">CyanogenMod legal</string>
+
+    <!-- Format string for fingerprint location message -->
+    <string name="security_settings_fingerprint_enroll_find_sensor_message_cm">Locate the fingerprint sensor on the <xliff:g id="sensor_location">%1$s</xliff:g> of your phone.</string>
+
+    <!-- Fingerprint sensor locations -->
+    <string name="security_settings_fingerprint_sensor_location_back">back</string>
+    <string name="security_settings_fingerprint_sensor_location_front">front</string>
+    <string name="security_settings_fingerprint_sensor_location_left">left side</string>
+    <string name="security_settings_fingerprint_sensor_location_right">right side</string>
 </resources>
