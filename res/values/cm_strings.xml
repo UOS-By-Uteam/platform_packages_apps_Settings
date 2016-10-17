@@ -334,4 +334,10 @@
 
     <!-- NFC PreferenceCategory title -->
     <string name="nfc_title_category">NFC</string>
+
+    <!-- Allow vibration in zen mode -->
+    <string name="zen_mode_vibration">Vibration</string>
+    <string name="zen_mode_vibration_never">Don\'t vibrate</string>
+    <string name="zen_mode_vibration_calls_only">Only vibrate for calls</string>
+    <string name="zen_mode_vibration_calls_and_notifications">Vibrate for calls and notifications</string>
 </resources>
