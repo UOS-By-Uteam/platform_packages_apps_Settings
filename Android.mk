@@ -30,7 +30,7 @@ LOCAL_MODULE_TAGS := optional
 
 LOCAL_SRC_FILES := \
         $(call all-java-files-under, src) \
-        $(call all-java-files-under, ../crDroidSettings/src)
+        $(call all-java-files-under, ../UOSSettings/src)
 
 LOCAL_RESOURCE_DIR := $(LOCAL_PATH)/res \
     frameworks/support/v7/preference/res \
@@ -38,10 +38,10 @@ LOCAL_RESOURCE_DIR := $(LOCAL_PATH)/res \
     frameworks/support/v7/appcompat/res \
     frameworks/support/v7/recyclerview/res
 
-LOCAL_RESOURCE_DIR += packages/apps/crDroidSettings/res
+LOCAL_RESOURCE_DIR += packages/apps/UOSSettings/res
 
 LOCAL_AAPT_FLAGS := --auto-add-overlay \
-	--extra-packages com.crdroid.settings
+	--extra-packages com.uos.settings
 
 LOCAL_PACKAGE_NAME := Settings
 LOCAL_CERTIFICATE := platform

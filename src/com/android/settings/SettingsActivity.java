@@ -53,6 +53,10 @@ import android.widget.Button;
 import android.widget.SearchView;
 
 import com.android.internal.util.ArrayUtils;
+import com.uos.settings.fragments.FlingSettings;
+import com.uos.settings.fragments.NavbarSettings;
+import com.uos.settings.fragments.SmartbarSettings;
+import com.uos.settings.fragments.PulseSettings;
 import com.android.settings.Settings.WifiSettingsActivity;
 import com.android.settings.accessibility.AccessibilitySettings;
 import com.android.settings.accessibility.AccessibilitySettingsForSetupWizard;
@@ -61,10 +65,6 @@ import com.android.settings.accounts.AccountSettings;
 import com.android.settings.accounts.AccountSyncSettings;
 import com.android.settings.accounts.ChooseAccountActivity;
 import com.android.settings.accounts.ManagedProfileSettings;
-import com.crdroid.settings.fragments.FlingSettings;
-import com.crdroid.settings.fragments.NavbarSettings;
-import com.crdroid.settings.fragments.SmartbarSettings;
-import com.crdroid.settings.fragments.PulseSettings;
 import com.android.settings.applications.AdvancedAppSettings;
 import com.android.settings.applications.DrawOverlayDetails;
 import com.android.settings.applications.InstalledAppDetails;
@@ -136,7 +136,7 @@ import com.android.settings.wifi.p2p.WifiP2pSettings;
 import com.android.settingslib.drawer.DashboardCategory;
 import com.android.settingslib.drawer.SettingsDrawerActivity;
 import com.android.settingslib.drawer.Tile;
-import com.crdroid.settings.crDroidSettings;
+import com.uos.settings.UOSSettings;
 
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -293,7 +293,7 @@ public class SettingsActivity extends SettingsDrawerActivity
             UserDictionaryList.class.getName(),
             UserDictionarySettings.class.getName(),
             HomeSettings.class.getName(),
-            crDroidSettings.class.getName(),
+            UOSSettings.class.getName(),
             DisplaySettings.class.getName(),
             DeviceInfoSettings.class.getName(),
             ManageApplications.class.getName(),

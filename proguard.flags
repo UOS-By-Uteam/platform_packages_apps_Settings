@@ -22,7 +22,7 @@
 -keep class com.android.settings.display.*FragmentForSetupWizard
 -keep class com.android.settings.display.NightDisplaySettings
 -keep class com.android.settings.crdroid.**
--keep class com.crdroid.settings.**
+-keep class com.uos.settings.**
 
 -keep class com.android.settings.cyanogenmod.*Settings
 
