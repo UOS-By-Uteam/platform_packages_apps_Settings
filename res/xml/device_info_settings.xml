@@ -34,8 +34,8 @@
 
         <!-- About crDroid -->
         <PreferenceScreen android:key="about"
-                android:title="@string/about_crdroid"
-                android:fragment="com.android.settings.crdroid.About" />
+                android:title="@string/about_uos"
+                android:fragment="com.android.settings.uos.About" />
 
         <!-- Device status - launches activity -->
         <PreferenceScreen android:key="status_info"

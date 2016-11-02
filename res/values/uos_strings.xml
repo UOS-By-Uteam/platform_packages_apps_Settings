@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-     Copyright (C) 2016 crDroid Android Project
+     Copyright (C) 2016 UOS Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -16,36 +16,30 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-    <!-- About phone screen, crDroid version -->
-    <string name="mod_version">crDroid version</string>
+    <!-- About phone screen, UOS version -->
+    <string name="mod_version">UOS version</string>
     <string name="mod_version_default">Unknown</string>
 
     <!-- Changelog -->
     <string name="changelog_crdroid_title">Changelog</string>
     <string name="changelog_crdroid_error">Unable to load changelog</string>
 
-    <!-- About crDroid -->
-    <string name="about_crdroid">About crDroid</string>
+    <!-- About UOS -->
+    <string name="about_uos">About UOS</string>
 
-    <!-- Share crDroid -->
-    <string name="share_crdroid_title">Share crDroid</string>
-    <string name="share_crdroid_summary">Let others know about crDroid</string>
-    <string name="share_message">Check out what #crDroid is all about @ https://plus.google.com/u/0/communities/118297646046960923906</string>
-    <string name="share_chooser_title">Share crDroid</string>
-
-    <!-- Sites crDroid -->
-    <string name="crdroid_source_title">Github</string>
-    <string name="crdroid_source_summary">Visit our source git team</string>
-    <string name="crdroid_google_plus_title">Google+</string>
-    <string name="crdroid_google_plus_summary">Visit our G+ page for support and news</string>
+    <!-- Sites UOS -->
+    <string name="uos_source_title">Github</string>
+    <string name="uos_source_summary">Visit our source git team</string>
+    <string name="uos_web_site_title">Website</string>
+    <string name="uos_web_site_summary">Visit our website for support and news</string>
 
     <!-- Maintainers -->
-    <string name="maintainers_crdroid_title">crDroid maintainers</string>
-    <string name="maintainers_crdroid_error">Unable to load maintainers list</string>
+    <string name="maintainers_uos_title">UOS maintainers</string>
+    <string name="maintainers_uos_error">Unable to load maintainers list</string>
 
-    <!-- crDroid Settings -->
-    <string name="crdroid_settings_title">crDroid Settings</string>
-    <string name="header_category_crdroid">crDroid</string>
+    <!-- UOS Settings -->
+    <string name="uos_settings_title">Advanced Settings</string>
+    <string name="header_category_uos">More</string>
 
     <!-- Quick unlock -->
    <string name="unlock_quick_unlock_control_title">Quick unlock</string>

@@ -139,7 +139,7 @@
         <activity android:name="com.uos.settings.fragments.HAFRAppListActivity" />
 
         <activity android:name=".Settings$UOSSettings"
-            android:label="@string/header_category_crdroid">
+            android:label="@string/header_category_uos">
             <intent-filter android:priority="4">
                 <action android:name="com.android.settings.category.uos" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -970,8 +970,8 @@
         </activity>
 
         <activity android:name="Settings$UOSSettingsActivity"
-            android:label="@string/crdroid_settings_title"
-            android:icon="@drawable/ic_settings_crdroid"
+            android:label="@string/uos_settings_title"
+            android:icon="@drawable/ic_settings_uos"
             android:taskAffinity="">
             <intent-filter android:priority="1">
                 <action android:name="uos.settings.UOSSettings" />
@@ -2968,7 +2968,7 @@
         <!-- Global DUI settings activity. -->
         <activity android:name="Settings$NavigationSettingsActivity"
             android:label="@string/navigation_category"
-            android:icon="@drawable/crdroid_navbar_icon"
+            android:icon="@drawable/uos_navbar_icon"
             android:taskAffinity="">
             <intent-filter>
                 <action android:name="com.uos.settings.fragments.NavbarSettings" />

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 crDroid Android Project
+ * Copyright (C) 2016 UOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.settings.crdroid;
+package com.android.settings.uos;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -51,7 +51,7 @@ public class Maintainers extends Fragment {
             }
             text = data.toString();
         } catch (IOException e) {
-            text = getString(R.string.maintainers_crdroid_error);
+            text = getString(R.string.maintainers_uos_error);
         } finally {
             try {
                 if (inputReader != null) {
