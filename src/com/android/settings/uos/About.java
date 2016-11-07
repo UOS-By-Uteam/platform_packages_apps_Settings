@@ -54,7 +54,7 @@ public class About extends SettingsPreferenceFragment {
     public boolean onPreferenceTreeClick(Preference preference) {
         if (preference == mSourceUrl) {
             launchUrl("https://github.com/UOS-By-Uteam");
-        } else if (preference == mGoogleUrl) {
+        } else if (preference == mWebsiteUrl) {
             launchUrl("https://uos.vn");
         }
         return super.onPreferenceTreeClick(preference);

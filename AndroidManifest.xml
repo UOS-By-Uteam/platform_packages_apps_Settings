@@ -138,6 +138,20 @@
 
         <activity android:name="com.uos.settings.fragments.HAFRAppListActivity" />
 
+        <activity android:name="com.uos.settings.fragments.NetworkTrafficWizard"
+            android:theme="@style/SetupWizardTheme.Light" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name="com.uos.settings.fragments.UMindSettings"
+            android:theme="@style/SetupWizardTheme.Light" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+
         <activity android:name=".Settings$UOSSettings"
             android:label="@string/header_category_uos">
             <intent-filter android:priority="4">

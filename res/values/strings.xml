@@ -25,6 +25,7 @@
     <!-- Strings for Dialog deny button -->
     <string name="deny">Deny</string>
 
+    <string name="umind_settings_title">UMind</string>
     <!-- Strings for Dialog close button [CHAR LIMIT=20] -->
     <string name="dlg_close">Close</string>
     <!-- Strings for Dialog switch button [CHAR LIMIT=20] -->
