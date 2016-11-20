@@ -23,6 +23,7 @@
 -keep class com.android.settings.display.NightDisplaySettings
 -keep class com.android.settings.crdroid.**
 -keep class com.uos.settings.**
+-keep class com.uos.settings.stats.*
 
 -keep class com.android.settings.cyanogenmod.*Settings
 
