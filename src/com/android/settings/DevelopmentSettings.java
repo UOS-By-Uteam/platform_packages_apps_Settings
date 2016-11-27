@@ -228,6 +228,8 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
 
     private static final String KEY_CONVERT_FBE = "convert_to_file_encryption";
 
+    private static final String OTA_DISABLE_AUTOMATIC_UPDATE_KEY = "ota_disable_automatic_update";
+
     private static final String DEVELOPMENT_TOOLS = "development_tools";
 
     private static final int RESULT_DEBUG_APP = 1000;
@@ -282,6 +284,7 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
     private SwitchPreference mWifiAggressiveHandover;
     private SwitchPreference mMobileDataAlwaysOn;
     private SwitchPreference mBluetoothDisableAbsVolume;
+    private SwitchPreference mOtaDisableAutomaticUpdate;
 
     private SwitchPreference mWifiAllowScansWithTraffic;
     private SwitchPreference mStrictMode;
@@ -302,9 +305,9 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
     private ListPreference mUsbConfiguration;
     private ListPreference mTrackFrameTime;
     private ListPreference mShowNonRectClip;
-    private AnimationScalePreference mWindowAnimationScale;
-    private AnimationScalePreference mTransitionAnimationScale;
-    private AnimationScalePreference mAnimatorDurationScale;
+    private ListPreference mWindowAnimationScale;
+    private ListPreference mTransitionAnimationScale;
+    private ListPreference mAnimatorDurationScale;
     private ListPreference mOverlayDisplayDevices;
 
     private SwitchPreference mWebViewMultiprocess;
@@ -480,14 +483,13 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
         mWebViewMultiprocess = findAndInitSwitchPref(WEBVIEW_MULTIPROCESS_KEY);
         mBluetoothDisableAbsVolume = findAndInitSwitchPref(BLUETOOTH_DISABLE_ABSOLUTE_VOLUME_KEY);
 
+        mWindowAnimationScale = addListPreference(WINDOW_ANIMATION_SCALE_KEY);
+        mTransitionAnimationScale = addListPreference(TRANSITION_ANIMATION_SCALE_KEY);
+        mAnimatorDurationScale = addListPreference(ANIMATOR_DURATION_SCALE_KEY);
         mOverlayDisplayDevices = addListPreference(OVERLAY_DISPLAY_DEVICES_KEY);
         mSimulateColorSpace = addListPreference(SIMULATE_COLOR_SPACE);
         mUSBAudio = findAndInitSwitchPref(USB_AUDIO_KEY);
         mForceResizable = findAndInitSwitchPref(FORCE_RESIZABLE_KEY);
-
-        mWindowAnimationScale = findAndInitAnimationScalePreference(WINDOW_ANIMATION_SCALE_KEY);
-        mTransitionAnimationScale = findAndInitAnimationScalePreference(TRANSITION_ANIMATION_SCALE_KEY);
-        mAnimatorDurationScale = findAndInitAnimationScalePreference(ANIMATOR_DURATION_SCALE_KEY);
 
         mImmediatelyDestroyActivities = (SwitchPreference) findPreference(
                 IMMEDIATELY_DESTROY_ACTIVITIES_KEY);
@@ -522,6 +524,12 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
             }
         } catch(RemoteException e) {
             removePreference(KEY_CONVERT_FBE);
+        }
+
+        mOtaDisableAutomaticUpdate = findAndInitSwitchPref(OTA_DISABLE_AUTOMATIC_UPDATE_KEY);
+        if (!SystemProperties.getBoolean("ro.build.ab_update", false)) {
+            removePreference(mOtaDisableAutomaticUpdate);
+            mOtaDisableAutomaticUpdate = null;
         }
 
         mColorModePreference = (ColorModePreference) findPreference(KEY_COLOR_MODE);
@@ -568,14 +576,6 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
             pref.setEnabled(false);
             mDisabledPrefs.add(pref);
         }
-    }
-
-    private AnimationScalePreference findAndInitAnimationScalePreference(String key) {
-        AnimationScalePreference pref = (AnimationScalePreference) findPreference(key);
-        pref.setOnPreferenceChangeListener(this);
-        pref.setOnPreferenceClickListener(this);
-        mAllPrefs.add(pref);
-        return pref;
     }
 
     private SwitchPreference findAndInitSwitchPref(String key) {
@@ -772,7 +772,9 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
         updateAppProcessLimitOptions();
         updateShowAllANRsOptions();
         updateVerifyAppsOverUsbOptions();
-        updateOtaDisableAutomaticUpdateOptions();
+        if (mOtaDisableAutomaticUpdate != null) {
+            updateOtaDisableAutomaticUpdateOptions();
+        }
         updateBugreportOptions();
         updateForceRtlOptions();
         updateLogdSizeValues();
@@ -1130,9 +1132,21 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
     }
 
     private void updateOtaDisableAutomaticUpdateOptions() {
-        // Actually disable OTA updates.
+        // We use the "disabled status" in code, but show the opposite text
+        // "Automatic system updates" on screen. So a value 0 indicates the
+        // automatic update is enabled.
+        updateSwitchPreference(mOtaDisableAutomaticUpdate, Settings.Global.getInt(
+                getActivity().getContentResolver(),
+                Settings.Global.OTA_DISABLE_AUTOMATIC_UPDATE, 0) != 1);
+    }
+
+    private void writeOtaDisableAutomaticUpdateOptions() {
+        // We use the "disabled status" in code, but show the opposite text
+        // "Automatic system updates" on screen. So a value 0 indicates the
+        // automatic update is enabled.
         Settings.Global.putInt(getActivity().getContentResolver(),
-                Settings.Global.OTA_DISABLE_AUTOMATIC_UPDATE, 1);
+                Settings.Global.OTA_DISABLE_AUTOMATIC_UPDATE,
+                mOtaDisableAutomaticUpdate.isChecked() ? 0 : 1);
     }
 
     private boolean enableVerifierSetting() {
@@ -1884,13 +1898,23 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
                 getActivity().getContentResolver(), Settings.Global.ALWAYS_FINISH_ACTIVITIES, 0) != 0);
     }
 
-    private void updateAnimationScaleValue(int which, AnimationScalePreference pref) {
+    private void updateAnimationScaleValue(int which, ListPreference pref) {
         try {
             float scale = mWindowManager.getAnimationScale(which);
-            if (scale != 0.6f) {
+            if (scale != 1) {
                 mHaveDebugSettings = true;
             }
-            pref.setScale(scale);
+            CharSequence[] values = pref.getEntryValues();
+            for (int i=0; i<values.length; i++) {
+                float val = Float.parseFloat(values[i].toString());
+                if (scale <= val) {
+                    pref.setValueIndex(i);
+                    pref.setSummary(pref.getEntries()[i]);
+                    return;
+                }
+            }
+            pref.setValueIndex(values.length-1);
+            pref.setSummary(pref.getEntries()[0]);
         } catch (RemoteException e) {
         }
     }
@@ -1901,10 +1925,9 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
         updateAnimationScaleValue(2, mAnimatorDurationScale);
     }
 
-    private void writeAnimationScaleOption(int which, AnimationScalePreference pref,
-            Object newValue) {
+    private void writeAnimationScaleOption(int which, ListPreference pref, Object newValue) {
         try {
-            float scale = newValue != null ? Float.parseFloat(newValue.toString()) : 0.6f;
+            float scale = newValue != null ? Float.parseFloat(newValue.toString()) : 1;
             mWindowManager.setAnimationScale(which, scale);
             updateAnimationScaleValue(which, pref);
         } catch (RemoteException e) {
@@ -2075,11 +2098,6 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
             intent.setClass(mActivity, AppOpsSummaryActivity.class);
             mActivity.startActivity(intent);
             return true;
-        } else if (preference == mWindowAnimationScale ||
-                preference == mTransitionAnimationScale ||
-                preference == mAnimatorDurationScale) {
-            ((AnimationScalePreference) preference).click();
-            return true;
         }
         return false;
     }
@@ -2178,6 +2196,8 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
             writeDebuggerOptions();
         } else if (preference == mVerifyAppsOverUsb) {
             writeVerifyAppsOverUsbOptions();
+        } else if (preference == mOtaDisableAutomaticUpdate) {
+            writeOtaDisableAutomaticUpdateOptions();
         } else if (preference == mStrictMode) {
             writeStrictModeVisualOptions();
         } else if (preference == mPointerLocation) {
