@@ -375,6 +375,8 @@ public class SettingsActivity extends SettingsDrawerActivity
             FlingSettings.class.getName(),
             SmartbarSettings.class.getName(),
             PulseSettings.class.getName(),
+            ManageDomainUrls.class.getName(),
+            AutomaticStorageManagerSettings.class.getName()
     };
 
 
@@ -657,7 +659,13 @@ public class SettingsActivity extends SettingsDrawerActivity
                 // Show Search affordance
                 mDisplaySearch = true;
                 mInitialTitleResId = R.string.dashboard_title;
-                switchToFragment(DashboardContainerFragment.class.getName(), null, false, false,
+
+                // add argument to indicate which settings tab should be initially selected
+                final Bundle args = new Bundle();
+                final String extraName = DashboardContainerFragment.EXTRA_SELECT_SETTINGS_TAB;
+                args.putString(extraName, intent.getStringExtra(extraName));
+
+                switchToFragment(DashboardContainerFragment.class.getName(), args, false, false,
                         mInitialTitleResId, mInitialTitle, false);
             }
         }
@@ -1132,7 +1140,7 @@ public class SettingsActivity extends SettingsDrawerActivity
                 pm.hasSystemFeature(PackageManager.FEATURE_PRINTING), isAdmin, pm);
 
         final boolean showDev = mDevelopmentPreferences.getBoolean(
-                    DevelopmentSettings.PREF_SHOW, android.os.Build.TYPE.equals("eng") || android.os.Build.TYPE.equals("userdebug"))
+                    DevelopmentSettings.PREF_SHOW, android.os.Build.TYPE.equals("eng"))
                 && !um.hasUserRestriction(UserManager.DISALLOW_DEBUGGING_FEATURES);
         setTileEnabled(new ComponentName(packageName,
                         Settings.DevelopmentSettingsActivity.class.getName()),
@@ -1330,6 +1338,9 @@ public class SettingsActivity extends SettingsDrawerActivity
     }
 
     public void startSuggestion(Intent intent) {
+        if (intent == null || ActivityManager.isUserAMonkey()) {
+            return;
+        }
         mCurrentSuggestion = intent.getComponent();
         startActivityForResult(intent, REQUEST_SUGGESTION);
     }
