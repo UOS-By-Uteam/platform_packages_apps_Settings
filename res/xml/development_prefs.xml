@@ -18,23 +18,6 @@
         xmlns:settings="http://schemas.android.com/apk/res/com.android.settings"
         android:title="@string/development_settings_title">
 
-    <cyanogenmod.preference.CMSecureSettingSwitchPreference
-            android:key="advanced_reboot"
-            android:title="@string/advanced_reboot_title"
-            android:summary="@string/advanced_reboot_summary" />
-
-    <ListPreference
-        android:key="root_access"
-        android:title="@string/root_access"
-        android:persistent="false"
-        android:entries="@array/root_access_entries"
-        android:entryValues="@array/root_access_values" />
-
-    <Preference
-        android:key="root_appops"
-        android:title="@string/root_appops_title"
-        android:summary="@string/root_appops_summary" />
-
     <PreferenceScreen
             android:key="development_tools"
             android:title="@string/development_tools_title"
@@ -49,6 +32,11 @@
             android:key="bugreport"
             android:title="@*android:string/bugreport_title"
             android:dialogTitle="@*android:string/bugreport_title" />
+
+    <cyanogenmod.preference.CMSecureSettingSwitchPreference
+            android:key="advanced_reboot"
+            android:title="@string/advanced_reboot_title"
+            android:summary="@string/advanced_reboot_summary" />
 
     <PreferenceScreen
             android:key="local_backup_password"
@@ -117,6 +105,28 @@
         android:key="color_temperature"
         android:title="@string/color_temperature"
         android:summary="@string/color_temperature_desc" />
+
+    <SwitchPreference
+        android:key="ota_disable_automatic_update"
+        android:title="@string/ota_disable_automatic_update" />
+
+    <PreferenceScreen
+        android:key="demo_mode"
+        android:title="@string/demo_mode">
+        <intent android:action="com.android.settings.action.DEMO_MODE" />
+    </PreferenceScreen>
+
+    <ListPreference
+        android:key="root_access"
+        android:title="@string/root_access"
+        android:persistent="false"
+        android:entries="@array/root_access_entries"
+        android:entryValues="@array/root_access_values" />
+
+    <Preference
+        android:key="root_appops"
+        android:title="@string/root_appops_title"
+        android:summary="@string/root_appops_summary" />
 
     <PreferenceCategory android:key="debug_debugging_category"
             android:title="@string/debug_debugging_category">
@@ -261,19 +271,19 @@
             android:title="@string/force_rtl_layout_all_locales"
             android:summary="@string/force_rtl_layout_all_locales_summary"/>
 
-        <com.android.settings.AnimationScalePreference
+        <ListPreference
             android:key="window_animation_scale"
             android:title="@string/window_animation_scale_title"
             android:entries="@array/window_animation_scale_entries"
             android:entryValues="@array/window_animation_scale_values" />
 
-        <com.android.settings.AnimationScalePreference
+        <ListPreference
             android:key="transition_animation_scale"
             android:title="@string/transition_animation_scale_title"
             android:entries="@array/transition_animation_scale_entries"
             android:entryValues="@array/transition_animation_scale_values" />
 
-        <com.android.settings.AnimationScalePreference
+        <ListPreference
             android:key="animator_duration_scale"
             android:title="@string/animator_duration_scale_title"
             android:entries="@array/animator_duration_scale_entries"
@@ -405,10 +415,10 @@
             android:title="@string/force_resizable_activities"
             android:summary="@string/force_resizable_activities_summary"/>
 
-        <!-- <cyanogenmod.preference.CMSecureSettingSwitchPreference
+        <cyanogenmod.preference.CMSecureSettingSwitchPreference
             android:key="kill_app_longpress_back"
             android:title="@string/kill_app_longpress_back"
-            android:summary="@string/kill_app_longpress_back_summary"/> -->
+            android:summary="@string/kill_app_longpress_back_summary"/>
 
         <Preference
             android:key="reset_shortcut_manager_throttling"
@@ -416,3 +426,4 @@
      </PreferenceCategory>
 
 </PreferenceScreen>
+
