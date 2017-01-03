@@ -70,7 +70,6 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
     private static final String KEY_UPDATE_SETTING = "additional_system_update_settings";
     private static final String KEY_EQUIPMENT_ID = "fcc_equipment_id";
     private static final String PROPERTY_EQUIPMENT_ID = "ro.ril.fccid";
-    private static final String KEY_DEVICE_FEEDBACK = "device_feedback";
     private static final String KEY_SAFETY_LEGAL = "safetylegal";
     private static final String KEY_MBN_VERSION = "mbn_version";
     private static final String PROPERTY_MBN_VERSION = "persist.mbn.version";
@@ -167,11 +166,6 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
         // Remove Baseband version if wifi-only device
         if (Utils.isWifiOnly(getActivity())) {
             getPreferenceScreen().removePreference(findPreference(KEY_BASEBAND_VERSION));
-        }
-
-        // Dont show feedback option if there is no reporter.
-        if (TextUtils.isEmpty(DeviceInfoUtils.getFeedbackReporterPackage(getActivity()))) {
-            getPreferenceScreen().removePreference(findPreference(KEY_DEVICE_FEEDBACK));
         }
 
         /*
@@ -308,8 +302,6 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
                         + "queryIntentActivities() returns empty" );
                 return true;
             }
-        } else if (preference.getKey().equals(KEY_DEVICE_FEEDBACK)) {
-            sendFeedback();
         } else if(preference.getKey().equals(KEY_SYSTEM_UPDATE_SETTINGS)) {
             CarrierConfigManager configManager =
                     (CarrierConfigManager) getSystemService(Context.CARRIER_CONFIG_SERVICE);
@@ -416,16 +408,6 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
         }
     }
 
-    private void sendFeedback() {
-        String reporterPackage = DeviceInfoUtils.getFeedbackReporterPackage(getActivity());
-        if (TextUtils.isEmpty(reporterPackage)) {
-            return;
-        }
-        Intent intent = new Intent(Intent.ACTION_BUG_REPORT);
-        intent.setPackage(reporterPackage);
-        startActivityForResult(intent, 0);
-    }
-
     private static String constructApiLevelString() {
         int sdkInt = cyanogenmod.os.Build.CM_VERSION.SDK_INT;
         StringBuilder builder = new StringBuilder();
@@ -491,10 +473,6 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
                 // Remove Baseband version if wifi-only device
                 if (Utils.isWifiOnly(context)) {
                     keys.add((KEY_BASEBAND_VERSION));
-                }
-                // Dont show feedback option if there is no reporter.
-                if (TextUtils.isEmpty(DeviceInfoUtils.getFeedbackReporterPackage(context))) {
-                    keys.add(KEY_DEVICE_FEEDBACK);
                 }
                 final UserManager um = UserManager.get(context);
                 // TODO: system update needs to be fixed for non-owner user b/22760654
