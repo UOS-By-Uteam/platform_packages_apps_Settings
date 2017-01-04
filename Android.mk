@@ -21,6 +21,7 @@ LOCAL_STATIC_JAVA_LIBRARIES := \
     android-support-v7-appcompat \
     android-support-v14-preference \
     jsr305 \
+    org.apache.http.legacy \
     settings-logtags
 
 LOCAL_STATIC_JAVA_LIBRARIES += \
