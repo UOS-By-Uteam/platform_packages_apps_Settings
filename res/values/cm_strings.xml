@@ -423,6 +423,8 @@
     <string name="crypt_keeper_replace_password_title">Replace encryption password</string>
     <string name="crypt_keeper_replace_password_summary">Remove the separate encryption password</string>
 
+    <string name="uos_version">UOS Version</string>
+
     <!-- Anonymous Statistics #UOS By UTeam -->
     <!-- About device screen, list item title. Takes the user to the screen about opting in or out of anonymous statistics. -->
     <string name="anonymous_statistics_title">UOS statistics</string>
@@ -446,4 +448,11 @@
     <string name="preview_rom_version_title">ROM Version</string>
     <string name="stats_collection_title">Stats collection</string>
     <string name="stats_collection_summary">When enabled, allows metrics collection</string>
+
+    <!-- Additional Settings -->
+    <string name="additional_settings_title">Additional settings</string>
+
+    <!-- Screenshot Settings -->
+    <string name="screenshot_settings_title">Screenshot</string>
+    <string name="screenshot_sound_title">Screenshot sound</string>
 </resources>

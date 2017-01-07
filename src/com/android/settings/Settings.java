@@ -1,6 +1,7 @@
 /*
  * Copyright (C) 2008 The Android Open Source Project
  * Copyright (C) 2016 The CyanogenMod Project
+ * Copyright (C) 2017 The UOS Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -156,6 +157,7 @@ public class Settings extends SettingsActivity {
     public static class TestingSettingsActivity extends SettingsActivity { /* empty */ }
     public static class WifiAPITestActivity extends SettingsActivity { /* empty */ }
     public static class WifiInfoActivity extends SettingsActivity { /* empty */ }
+    public static class AdditionalSettingsActivity extends SettingsActivity { /* empty */ }
 
     // Categories.
     public static class WirelessSettings extends SettingsActivity { /* empty */ }
