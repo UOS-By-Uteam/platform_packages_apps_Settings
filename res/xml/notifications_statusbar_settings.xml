@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2017 The UOS Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<PreferenceScreen
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:settings="http://schemas.android.com/apk/res/com.android.settings"
+    android:title="@string/notifications_statusbar_settings_title">
+
+    <PreferenceCategory
+        android:key="notification"
+        android:title="@string/notification_category_label">
+
+        <PreferenceScreen
+            android:id="@+id/app_notificatins_settings"
+            android:fragment="com.android.settings.applications.NotificationApps"
+            android:title="@string/app_notifications_title" >
+            <extra android:name="classname"
+                android:value="com.android.settings.Settings$NotificationAppListActivity" />
+        </PreferenceScreen>
+
+        <!-- Heads up -->
+        <cyanogenmod.preference.GlobalSettingSwitchPreference
+            android:key="heads_up_notifications_enabled"
+            android:title="@string/heads_up_notifications_enabled_title"
+            android:summary="@string/heads_up_notifications_enabled_summary" />
+
+        <!-- When device is locked -->
+        <com.android.settings.notification.RestrictedDropDownPreference
+            android:key="lock_screen_notifications"
+            android:title="@string/lock_screen_notifications_title"
+            android:summary="%s" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="statusbar"
+        android:title="@string/statusbar_category_label">
+
+        <PreferenceScreen
+            android:key="status_bar_icons"
+            android:title="@string/status_bar_icons_title"
+            android:summary="@string/status_bar_icons_summary">
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetPackage="com.android.systemui"
+                android:targetClass="com.android.systemui.tuner.TunerActivity">
+                <extra android:name="tuner" android:value="status_bar" />
+            </intent>
+        </PreferenceScreen>
+
+        <!-- Notification icons -->
+        <cyanogenmod.preference.SystemSettingSwitchPreference
+            android:key="notification_icons_hide"
+            android:title="@string/notification_icons_title"
+            android:summary="@string/notification_icons_summary"
+            android:defaultValue="false" />
+
+        <!-- Connection speed -->
+        <cyanogenmod.preference.SystemSettingSwitchPreference
+            android:key="connection_speed_state"
+            android:title="@string/connection_speed_title"
+            android:summary="@string/connection_speed_summary"
+            android:defaultValue="false" />
+
+        <!-- Connection speed -->
+        <cyanogenmod.preference.SystemSettingSwitchPreference
+            android:key="global_umind"
+            android:title="@string/connection_speed_title"
+            android:summary="@string/connection_speed_summary"
+            android:defaultValue="false" />
+
+        <cyanogenmod.preference.CMSystemSettingSwitchPreference
+            android:key="status_bar_show_weather"
+            android:title="@string/status_bar_show_weather_title"
+            android:summary="@string/status_bar_show_weather_summary"
+            android:defaultValue="true" />
+
+        <cyanogenmod.preference.CMSystemSettingListPreference
+            android:key="status_bar_show_battery_percent"
+            android:title="@string/status_bar_battery_percentage_title"
+            android:summary="%s"
+            android:dialogTitle="@string/status_bar_battery_percentage_title"
+            android:entries="@array/status_bar_battery_percentage_entries"
+            android:entryValues="@array/status_bar_battery_percentage_values"
+            android:defaultValue="0" />
+
+        <!-- Double tap to sleep -->
+        <cyanogenmod.preference.CMSystemSettingSwitchPreference
+            android:key="double_tap_sleep_gesture"
+            android:title="@string/status_bar_double_tap_to_sleep_title"
+            android:summary="@string/status_bar_double_tap_to_sleep_summary"
+            android:defaultValue="true" />
+
+        <cyanogenmod.preference.CMSystemSettingSwitchPreference
+            android:key="status_bar_brightness_control"
+            android:title="@string/status_bar_toggle_brightness"
+            android:summary="@string/status_bar_toggle_brightness_summary"
+            android:defaultValue="false" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

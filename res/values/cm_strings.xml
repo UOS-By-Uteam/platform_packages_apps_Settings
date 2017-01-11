@@ -455,4 +455,50 @@
     <!-- Screenshot Settings -->
     <string name="screenshot_settings_title">Screenshot</string>
     <string name="screenshot_sound_title">Screenshot sound</string>
+
+    <!-- Statusbar & Notifications Settings -->
+    <string name="notifications_statusbar_settings_title">Notifications &amp; statusbar</string>
+
+    <!-- Statusbar: Connection Speed -->
+    <string name="connection_speed_title">Show connection speed</string>
+    <string name="connection_speed_summary">Enable to display connection speed on your statusbar</string>
+
+    <!-- Statusbar: Notification Icons -->
+    <string name="notification_icons_title">Show notification icons</string>
+    <string name="notification_icons_summary">Enable to show notification icons on your statusbar</string>
+
+    <!-- Status bar - Battery percentage -->
+    <string name="status_bar_battery_percentage_title">Battery percentage</string>
+    <string name="status_bar_battery_percentage_default">Hidden</string>
+    <string name="status_bar_battery_percentage_text_inside">Inside the icon</string>
+    <string name="status_bar_battery_percentage_text_next">Next to the icon</string>
+
+    <!-- Status bar - icon blacklist -->
+    <string name="status_bar_icons_title">Status bar icons</string>
+    <string name="status_bar_icons_summary">Control which status bar icons are shown</string>
+
+    <!-- Status bar - double tap to sleep -->
+    <string name="status_bar_double_tap_to_sleep_title">Double-tap to sleep</string>
+    <string name="status_bar_double_tap_to_sleep_summary">Double-tap on the status bar to turn off the display</string>
+
+    <string name="status_bar_show_weather_title">Show weather</string>
+    <string name="status_bar_show_weather_summary">Display the current temperature on the status bar</string>
+
+    <string name="status_bar_toggle_brightness">Brightness control</string>
+    <string name="status_bar_toggle_brightness_summary">Adjust brightness by sliding across the status bar</string>
+
+    <!-- Notification -->
+    <string name="notification_category_label">Notification</string>
+    <string name="statusbar_category_label">Statusbar</string>
+    <string name="app_notifications_title">App Notifications</string>
+
+    <string name="vibration_label">Vibration</string>
+    <string name="volume_label">Volume</string>
+    <string name="ringtone_label">Ringtone &amp; notification sounds</string>
+
+    <string name="screen_label">Screen</string>
+    <string name="view_label">View</string>
+    <string name="system_display_label">System Display</string>
+    <string name="more_label">More</string>
+
 </resources>

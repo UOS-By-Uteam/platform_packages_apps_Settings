@@ -158,6 +158,7 @@ public class Settings extends SettingsActivity {
     public static class WifiAPITestActivity extends SettingsActivity { /* empty */ }
     public static class WifiInfoActivity extends SettingsActivity { /* empty */ }
     public static class AdditionalSettingsActivity extends SettingsActivity { /* empty */ }
+    public static class NotificationsStatusbarSettingsActivity extends SettingsActivity { /* empty */ }
 
     // Categories.
     public static class WirelessSettings extends SettingsActivity { /* empty */ }

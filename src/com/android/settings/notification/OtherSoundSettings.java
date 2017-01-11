@@ -41,7 +41,6 @@ import com.android.settings.Utils;
 import com.android.settings.search.BaseSearchIndexProvider;
 import com.android.settings.search.Indexable;
 
-import cyanogenmod.hardware.CMHardwareManager;
 import cyanogenmod.providers.CMSettings;
 
 import java.util.ArrayList;
@@ -70,7 +69,6 @@ public class OtherSoundSettings extends SettingsPreferenceFragment implements In
     private static final String KEY_CHARGING_SOUNDS = "charging_sounds";
     private static final String KEY_DOCKING_SOUNDS = "docking_sounds";
     private static final String KEY_TOUCH_SOUNDS = "touch_sounds";
-    private static final String KEY_VIBRATE_ON_TOUCH = "vibrate_on_touch";
     private static final String KEY_DOCK_AUDIO_MEDIA = "dock_audio_media";
     private static final String KEY_EMERGENCY_TONE = "emergency_tone";
 
@@ -117,14 +115,6 @@ public class OtherSoundSettings extends SettingsPreferenceFragment implements In
                 }
             });
             return super.setSetting(context, value);
-        }
-    };
-
-    private static final SettingPref PREF_VIBRATE_ON_TOUCH = new SettingPref(
-            TYPE_SYSTEM, KEY_VIBRATE_ON_TOUCH, System.HAPTIC_FEEDBACK_ENABLED, DEFAULT_ON) {
-        @Override
-        public boolean isApplicable(Context context) {
-            return hasHaptic(context);
         }
     };
 
@@ -179,7 +169,6 @@ public class OtherSoundSettings extends SettingsPreferenceFragment implements In
         PREF_CHARGING_SOUNDS,
         PREF_DOCKING_SOUNDS,
         PREF_TOUCH_SOUNDS,
-        PREF_VIBRATE_ON_TOUCH,
         PREF_DOCK_AUDIO_MEDIA,
         PREF_EMERGENCY_TONE,
     };
@@ -218,10 +207,6 @@ public class OtherSoundSettings extends SettingsPreferenceFragment implements In
         } else {
             removePreference(KEY_BOOT_SOUNDS);
         }
-        final CMHardwareManager hardware = CMHardwareManager.getInstance(mContext);
-        if (!hardware.isSupported(CMHardwareManager.FEATURE_VIBRATOR)) {
-            removePreference(CMSettings.Secure.VIBRATOR_INTENSITY);
-        }
     }
 
     @Override
@@ -248,11 +233,6 @@ public class OtherSoundSettings extends SettingsPreferenceFragment implements In
 
     private static boolean hasDockSettings(Context context) {
         return context.getResources().getBoolean(R.bool.has_dock_settings);
-    }
-
-    private static boolean hasHaptic(Context context) {
-        final Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-        return vibrator != null && vibrator.hasVibrator();
     }
 
     // === Callbacks ===

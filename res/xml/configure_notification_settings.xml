@@ -20,24 +20,12 @@
         android:title="@string/configure_notification_settings"
         android:key="configure_notification_settings" >
 
-    <!-- When device is locked -->
-    <com.android.settings.notification.RestrictedDropDownPreference
-            android:key="lock_screen_notifications"
-            android:title="@string/lock_screen_notifications_title"
-            android:summary="%s" />
-
     <!-- importance -->
     <PreferenceScreen
         android:key="power_notification_controls"
         android:title="@string/tuner_full_importance_settings">
         <intent android:action="com.android.settings.action.POWER_NOTIF_CONTROLS" />
     </PreferenceScreen>
-
-    <!-- Heads up -->
-    <cyanogenmod.preference.GlobalSettingSwitchPreference
-        android:key="heads_up_notifications_enabled"
-        android:title="@string/heads_up_notifications_enabled_title"
-        android:summary="@string/heads_up_notifications_enabled_summary" />
 
     <!-- Lights -->
     <PreferenceCategory

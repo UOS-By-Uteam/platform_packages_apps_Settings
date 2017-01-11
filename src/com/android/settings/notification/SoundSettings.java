@@ -45,9 +45,11 @@ import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.provider.SearchIndexableResource;
 import android.provider.Settings;
+import android.provider.Settings.System;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.Preference.OnPreferenceChangeListener;
 import android.support.v7.preference.PreferenceScreen;
+import android.support.v7.preference.PreferenceCategory;
 import android.support.v7.preference.TwoStatePreference;
 import android.text.TextUtils;
 import android.util.Log;
@@ -62,7 +64,9 @@ import com.android.settings.search.BaseSearchIndexProvider;
 import com.android.settings.search.Indexable;
 import com.android.settingslib.RestrictedLockUtils;
 import com.android.settingslib.RestrictedPreference;
+
 import cyanogenmod.providers.CMSettings;
+import cyanogenmod.hardware.CMHardwareManager;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -71,10 +75,13 @@ import java.util.List;
 import java.util.Objects;
 
 import static com.android.settingslib.RestrictedLockUtils.EnforcedAdmin;
+import static com.android.settings.notification.SettingPref.TYPE_SYSTEM;
 
 public class SoundSettings extends SettingsPreferenceFragment implements Indexable {
     private static final String TAG = "SoundSettings";
 
+    private static final String KEY_CATEGORY_VOLUME = "volume";
+    private static final String KEY_CATEGORY_VIBRATION = "vibration";
     private static final String KEY_MEDIA_VOLUME = "media_volume";
     private static final String KEY_ALARM_VOLUME = "alarm_volume";
     private static final String KEY_RING_VOLUME = "ring_volume";
@@ -86,9 +93,12 @@ public class SoundSettings extends SettingsPreferenceFragment implements Indexab
     private static final String KEY_WIFI_DISPLAY = "wifi_display";
     private static final String KEY_INCREASING_RING_VOLUME = "increasing_ring_volume";
     private static final String KEY_ZEN_MODE = "zen_mode";
+    private static final String KEY_VIBRATE_ON_TOUCH = "vibrate_on_touch";
+    private static final String KEY_VIBRATE_INTENSITY = "vibrator_intensity";
 
     private static final String SELECTED_PREFERENCE_KEY = "selected_preference";
     private static final int REQUEST_CODE = 200;
+    private static final int DEFAULT_ON = 1;
 
     private static final String[] RESTRICTED_KEYS = {
         KEY_MEDIA_VOLUME,
@@ -139,6 +149,14 @@ public class SoundSettings extends SettingsPreferenceFragment implements Indexab
         return MetricsEvent.SOUND;
     }
 
+    private static final SettingPref PREF_VIBRATE_ON_TOUCH = new SettingPref(
+            TYPE_SYSTEM, KEY_VIBRATE_ON_TOUCH, System.HAPTIC_FEEDBACK_ENABLED, DEFAULT_ON) {
+        @Override
+        public boolean isApplicable(Context context) {
+            return hasHaptic(context);
+        }
+    };
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -154,6 +172,11 @@ public class SoundSettings extends SettingsPreferenceFragment implements Indexab
 
         addPreferencesFromResource(R.xml.sound_settings);
 
+        PreferenceCategory volumePrefs = (PreferenceCategory)
+                findPreference(KEY_CATEGORY_VOLUME);
+        PreferenceCategory vibrationPrefs = (PreferenceCategory)
+                findPreference(KEY_CATEGORY_VIBRATION);
+
         initVolumePreference(KEY_MEDIA_VOLUME, AudioManager.STREAM_MUSIC,
                 com.android.internal.R.drawable.ic_audio_media_mute);
         initVolumePreference(KEY_ALARM_VOLUME, AudioManager.STREAM_ALARM,
@@ -162,19 +185,28 @@ public class SoundSettings extends SettingsPreferenceFragment implements Indexab
             mRingOrNotificationPreference =
                     initVolumePreference(KEY_RING_VOLUME, AudioManager.STREAM_RING,
                             com.android.internal.R.drawable.ic_audio_ring_notif_mute);
-            removePreference(KEY_NOTIFICATION_VOLUME);
+            VolumeSeekBarPreference mNotificationPreference = (VolumeSeekBarPreference) getPreferenceScreen().findPreference(KEY_NOTIFICATION_VOLUME);
+            volumePrefs.removePreference(mNotificationPreference);
         } else {
             mRingOrNotificationPreference =
                     initVolumePreference(KEY_NOTIFICATION_VOLUME, AudioManager.STREAM_NOTIFICATION,
                             com.android.internal.R.drawable.ic_audio_ring_notif_mute);
-            removePreference(KEY_RING_VOLUME);
+            VolumeSeekBarPreference mRingPreference = (VolumeSeekBarPreference) getPreferenceScreen().findPreference(KEY_RING_VOLUME);
+            volumePrefs.removePreference(mRingPreference);
         }
 
         initRingtones();
         initVibrateWhenRinging();
         initIncreasingRing();
+        PREF_VIBRATE_ON_TOUCH.init(this);
         updateRingerMode();
         updateEffectsSuppressor();
+
+        final CMHardwareManager hardware = CMHardwareManager.getInstance(mContext);
+        if (!hardware.isSupported(CMHardwareManager.FEATURE_VIBRATOR)) {
+            Preference mVibrationIntensity = getPreferenceScreen().findPreference(KEY_VIBRATE_INTENSITY);
+            vibrationPrefs.removePreference(mVibrationIntensity);
+        }
 
         if (savedInstanceState != null) {
             String selectedPreference = savedInstanceState.getString(SELECTED_PREFERENCE_KEY, null);
@@ -511,6 +543,7 @@ public class SoundSettings extends SettingsPreferenceFragment implements Indexab
             final ContentResolver cr = getContentResolver();
             if (register) {
                 cr.registerContentObserver(VIBRATE_WHEN_RINGING_URI, false, this);
+                cr.registerContentObserver(PREF_VIBRATE_ON_TOUCH.getUri(), false, this);
             } else {
                 cr.unregisterContentObserver(this);
             }
@@ -521,6 +554,10 @@ public class SoundSettings extends SettingsPreferenceFragment implements Indexab
             super.onChange(selfChange, uri);
             if (VIBRATE_WHEN_RINGING_URI.equals(uri)) {
                 updateVibrateWhenRinging();
+            }
+            if (PREF_VIBRATE_ON_TOUCH.getUri().equals(uri)) {
+                PREF_VIBRATE_ON_TOUCH.update(mContext);
+                return;
             }
         }
     }
@@ -590,6 +627,11 @@ public class SoundSettings extends SettingsPreferenceFragment implements Indexab
                 mHandler.sendEmptyMessage(H.UPDATE_RINGER_MODE);
             }
         }
+    }
+
+    private static boolean hasHaptic(Context context) {
+        final Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+        return vibrator != null && vibrator.hasVibrator();
     }
 
     // === Summary ===

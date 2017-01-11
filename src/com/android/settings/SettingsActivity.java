@@ -138,6 +138,7 @@ import com.android.settingslib.drawer.SettingsDrawerActivity;
 import com.android.settingslib.drawer.Tile;
 
 import com.uos.settings.AdditionalSettings;
+import com.uos.settings.NotificationsStatusbarSettings;
 
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -373,7 +374,8 @@ public class SettingsActivity extends SettingsDrawerActivity
             NightDisplaySettings.class.getName(),
             ManageDomainUrls.class.getName(),
             AutomaticStorageManagerSettings.class.getName(),
-            AdditionalSettings.class.getName()
+            AdditionalSettings.class.getName(),
+            NotificationsStatusbarSettings.class.getName()
     };
 
 

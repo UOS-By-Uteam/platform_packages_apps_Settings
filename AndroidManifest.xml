@@ -633,11 +633,6 @@
                 <category android:name="android.intent.category.VOICE_LAUNCH" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-            <intent-filter android:priority="-1">
-                <action android:name="com.android.settings.action.SETTINGS" />
-            </intent-filter>
-            <meta-data android:name="com.android.settings.category"
-                android:value="com.android.settings.category.personal" />
             <meta-data android:name="com.android.settings.FRAGMENT_CLASS"
                 android:value="com.android.settings.inputmethod.InputMethodAndLanguageSettings" />
             <meta-data android:name="com.android.settings.PRIMARY_PROFILE_CONTROLLED"
@@ -989,14 +984,28 @@
         <activity android:name="Settings$AdditionalSettingsActivity"
                 android:label="@string/additional_settings_title"
                 android:icon="@drawable/ic_additional_settings">
-            <intent-filter android:priority="1">
+            <intent-filter android:priority="-8">
                 <action android:name="com.android.settings.action.SETTINGS" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
             <meta-data android:name="com.android.settings.category"
-                android:value="com.android.settings.category.system" />
+                android:value="com.android.settings.category.device" />
             <meta-data android:name="com.android.settings.FRAGMENT_CLASS"
                 android:value="com.uos.settings.AdditionalSettings" />
+        </activity>
+
+	<!-- Statusbar settings -->
+        <activity android:name="Settings$NotificationsStatusbarSettingsActivity"
+                android:label="@string/notifications_statusbar_settings_title"
+                android:icon="@drawable/ic_settings_notifications_statusbar">
+            <intent-filter android:priority="8">
+                <action android:name="com.android.settings.action.SETTINGS" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <meta-data android:name="com.android.settings.category"
+                android:value="com.android.settings.category.device" />
+            <meta-data android:name="com.android.settings.FRAGMENT_CLASS"
+                android:value="com.uos.settings.NotificationsStatusbarSettings" />
         </activity>
 
         <!-- Keep compatibility with old shortcuts. -->
@@ -1370,11 +1379,6 @@
                 <category android:name="android.intent.category.VOICE_LAUNCH" />
                 <category android:name="com.android.settings.SHORTCUT" />
             </intent-filter>
-            <intent-filter android:priority="3">
-                <action android:name="com.android.settings.action.SETTINGS" />
-            </intent-filter>
-            <meta-data android:name="com.android.settings.category"
-                android:value="com.android.settings.category.personal" />
             <meta-data android:name="com.android.settings.FRAGMENT_CLASS"
                 android:value="com.android.settings.location.LocationSettings" />
             <meta-data android:name="com.android.settings.PRIMARY_PROFILE_CONTROLLED"
@@ -1397,11 +1401,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.VOICE_LAUNCH" />
             </intent-filter>
-            <intent-filter android:priority="2">
-                <action android:name="com.android.settings.action.SETTINGS" />
-            </intent-filter>
-            <meta-data android:name="com.android.settings.category"
-                android:value="com.android.settings.category.personal" />
             <meta-data android:name="com.android.settings.FRAGMENT_CLASS"
                 android:value="com.android.settings.SecuritySettings" />
             <meta-data android:name="com.android.settings.PRIMARY_PROFILE_CONTROLLED"
@@ -1469,11 +1468,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.VOICE_LAUNCH" />
             </intent-filter>
-            <intent-filter android:priority="-2">
-                <action android:name="com.android.settings.action.SETTINGS" />
-            </intent-filter>
-            <meta-data android:name="com.android.settings.category"
-                android:value="com.android.settings.category.personal" />
             <meta-data android:name="com.android.settings.FRAGMENT_CLASS"
                 android:value="com.android.settings.PrivacySettings" />
             <meta-data android:name="com.android.settings.PRIMARY_PROFILE_CONTROLLED"
@@ -2414,11 +2408,6 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-            <intent-filter android:priority="1">
-                <action android:name="com.android.settings.action.SETTINGS" />
-            </intent-filter>
-            <meta-data android:name="com.android.settings.category"
-                android:value="com.android.settings.category.personal" />
             <meta-data android:name="com.android.settings.FRAGMENT_CLASS"
                 android:value="com.android.settings.accounts.AccountSettings" />
             <meta-data android:name="com.android.settings.PRIMARY_PROFILE_CONTROLLED"
@@ -2746,11 +2735,11 @@
                 <category android:name="android.intent.category.VOICE_LAUNCH" />
                 <category android:name="com.android.settings.SHORTCUT" />
             </intent-filter>
-            <intent-filter android:priority="7">
+            <intent-filter android:priority="-2">
                 <action android:name="com.android.settings.action.SETTINGS" />
             </intent-filter>
             <meta-data android:name="com.android.settings.category"
-                       android:value="com.android.settings.category.device" />
+                       android:value="com.android.settings.category.personal" />
             <meta-data android:name="com.android.settings.FRAGMENT_CLASS"
                 android:value="com.android.settings.notification.SoundSettings" />
             <meta-data android:name="com.android.settings.PRIMARY_PROFILE_CONTROLLED"
@@ -2793,8 +2782,6 @@
             <intent-filter android:priority="8">
                 <action android:name="com.android.settings.action.SETTINGS" />
             </intent-filter>
-            <meta-data android:name="com.android.settings.category"
-                       android:value="com.android.settings.category.device" />
             <meta-data android:name="com.android.settings.FRAGMENT_CLASS"
                 android:value="com.android.settings.applications.NotificationApps" />
         </activity>

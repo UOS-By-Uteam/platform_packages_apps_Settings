@@ -146,5 +146,4 @@
     <declare-styleable name="AspectRatioFrameLayout">
         <attr name="aspectRatio" format="float" />
     </declare-styleable>
-
 </resources>

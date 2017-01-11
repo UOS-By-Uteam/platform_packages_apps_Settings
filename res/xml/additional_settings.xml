@@ -21,10 +21,69 @@
     xmlns:settings="http://schemas.android.com/apk/res/com.android.settings"
     android:title="@string/additional_settings_title">
 
-    <PreferenceScreen
-            android:id="@+id/screenshot_settings"
-            android:fragment="com.uos.settings.ScreenshotSettings"
-            android:title="@string/screenshot_settings_title"
-            android:icon="@drawable/ic_settings_screenshot" />
+    <!-- Privacy -->
+    <org.cyanogenmod.internal.cmparts.CMPartsPreference
+        android:key="privacy_settings"
+        android:icon="@drawable/ic_settings_privacy"/>
 
+    <PreferenceScreen
+        android:id="@+id/security_settings"
+        android:fragment="com.android.settings.SecuritySettings"
+        android:title="@string/security_settings_title"
+        android:icon="@drawable/ic_settings_security">
+        <extra android:name="classname"
+               android:value="com.android.settings.Settings$SecuritySettingsActivity" />
+    </PreferenceScreen>
+
+    <PreferenceScreen
+        android:id="@+id/screenshot_settings"
+        android:fragment="com.uos.settings.ScreenshotSettings"
+        android:title="@string/screenshot_settings_title"
+        android:icon="@drawable/ic_settings_screenshot" />
+
+    <!-- Buttons -->
+    <org.cyanogenmod.internal.cmparts.CMPartsPreference
+        android:key="button_settings"
+        android:icon="@drawable/ic_settings_buttons"/>
+
+    <PreferenceScreen
+        android:id="@+id/account_settings"
+        android:fragment="com.android.settings.accounts.AccountSettings"
+        android:title="@string/account_settings_title"
+        android:icon="@drawable/ic_settings_accounts">
+        <extra android:name="classname"
+               android:value="com.android.settings.Settings$AccountSettingsActivity" />
+    </PreferenceScreen>
+
+    <PreferenceScreen
+        android:id="@+id/location_settings"
+        android:fragment="com.android.settings.location.LocationSettings"
+        android:title="@string/location_settings_title"
+        android:icon="@drawable/ic_settings_location">
+        <extra android:name="classname"
+               android:value="com.android.settings.Settings$LocationSettingsActivity" />
+    </PreferenceScreen>
+
+    <PreferenceScreen
+        android:id="@+id/input_method_language_settings"
+        android:fragment="com.android.settings.inputmethod.InputMethodAndLanguageSettings"
+        android:title="@string/language_keyboard_settings_title"
+        android:icon="@drawable/ic_settings_language">
+        <extra android:name="classname"
+               android:value="com.android.settings.Settings$InputMethodAndLanguageSettingsActivity" />
+    </PreferenceScreen>
+
+    <PreferenceScreen
+        android:id="@+id/backup_and_reset_settings"
+        android:fragment="com.android.settings.PrivacySettings"
+        android:title="@string/privacy_settings_title"
+        android:icon="@drawable/ic_settings_backup">
+        <extra android:name="classname"
+               android:value="com.android.settings.Settings$PrivacySettingsActivity" />
+    </PreferenceScreen>
+
+    <!-- Profiles -->
+    <org.cyanogenmod.internal.cmparts.CMPartsPreference
+        android:key="profiles_settings"
+        android:icon="@drawable/ic_settings_profiles"/>
 </PreferenceScreen>

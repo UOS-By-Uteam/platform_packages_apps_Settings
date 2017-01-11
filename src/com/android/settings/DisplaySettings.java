@@ -79,7 +79,10 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     /** If there is no setting in the provider, use this. */
     private static final int FALLBACK_SCREEN_TIMEOUT_VALUE = 30000;
 
-    private static final String KEY_CATEGORY_DISPLAY = "display";
+    private static final String KEY_CATEGORY_SCREEN = "screen";
+    private static final String KEY_CATEGORY_VIEW = "view";
+    private static final String KEY_CATEGORY_SYSTEM_DISPLAY = "system_display";
+    private static final String KEY_CATEGORY_MORE = "more";
     private static final String KEY_SCREEN_TIMEOUT = "screen_timeout";
     private static final String KEY_FONT_SIZE = "font_size";
     private static final String KEY_SCREEN_SAVER = "screensaver";
@@ -118,8 +121,17 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
 
         addPreferencesFromResource(R.xml.display_settings);
 
-        PreferenceCategory displayPrefs = (PreferenceCategory)
-                findPreference(KEY_CATEGORY_DISPLAY);
+        PreferenceCategory screenPrefs = (PreferenceCategory)
+                findPreference(KEY_CATEGORY_SCREEN);
+
+        PreferenceCategory moreDisplayPrefs = (PreferenceCategory)
+                findPreference(KEY_CATEGORY_MORE);
+
+        PreferenceCategory viewPrefs = (PreferenceCategory)
+                findPreference(KEY_CATEGORY_VIEW);
+
+        PreferenceCategory systemDisplayPrefs = (PreferenceCategory)
+                findPreference(KEY_CATEGORY_SYSTEM_DISPLAY);
 
         mScreenSaverPreference = findPreference(KEY_SCREEN_SAVER);
         if (mScreenSaverPreference != null
@@ -136,13 +148,13 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             removePreference(KEY_NIGHT_DISPLAY);
         }
 
-        if (displayPrefs != null) {
+        if (screenPrefs != null) {
             mAutoBrightnessPreference = (SwitchPreference) findPreference(KEY_AUTO_BRIGHTNESS);
             if (mAutoBrightnessPreference != null) {
                 if (isAutomaticBrightnessAvailable(getResources())) {
                     mAutoBrightnessPreference.setOnPreferenceChangeListener(this);
                 } else {
-                    displayPrefs.removePreference(mAutoBrightnessPreference);
+                    screenPrefs.removePreference(mAutoBrightnessPreference);
                 }
             }
 
@@ -151,7 +163,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
                 if (isLiftToWakeAvailable(activity)) {
                     mLiftToWakePreference.setOnPreferenceChangeListener(this);
                 } else {
-                    displayPrefs.removePreference(mLiftToWakePreference);
+                    moreDisplayPrefs.removePreference(mLiftToWakePreference);
                 }
             }
 
@@ -160,7 +172,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
                 if (isDozeAvailable(activity)) {
                     mDozePreference.setOnPreferenceChangeListener(this);
                 } else {
-                    displayPrefs.removePreference(mDozePreference);
+                    moreDisplayPrefs.removePreference(mDozePreference);
                 }
             }
 
@@ -169,7 +181,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
                 if (isTapToWakeAvailable(getResources())) {
                     mTapToWakePreference.setOnPreferenceChangeListener(this);
                 } else {
-                    displayPrefs.removePreference(mTapToWakePreference);
+                    moreDisplayPrefs.removePreference(mTapToWakePreference);
                 }
             }
 
@@ -178,7 +190,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
                 if (isCameraGestureAvailable(getResources())) {
                     mCameraGesturePreference.setOnPreferenceChangeListener(this);
                 } else {
-                    displayPrefs.removePreference(mCameraGesturePreference);
+                    moreDisplayPrefs.removePreference(mCameraGesturePreference);
                 }
             }
 
@@ -220,7 +232,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
                         }
                     });
                 } else {
-                    displayPrefs.removePreference(rotatePreference);
+                    systemDisplayPrefs.removePreference(rotatePreference);
                 }
             }
 
@@ -256,7 +268,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
                         }
                     });
                 } else {
-                    displayPrefs.removePreference(vrDisplayPref);
+                    moreDisplayPrefs.removePreference(vrDisplayPref);
                 }
             }
         }
