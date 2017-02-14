@@ -77,13 +77,6 @@
             android:summary="@string/connection_speed_summary"
             android:defaultValue="false" />
 
-        <!-- Connection speed -->
-        <cyanogenmod.preference.SystemSettingSwitchPreference
-            android:key="global_umind"
-            android:title="@string/connection_speed_title"
-            android:summary="@string/connection_speed_summary"
-            android:defaultValue="false" />
-
         <cyanogenmod.preference.CMSystemSettingSwitchPreference
             android:key="status_bar_show_weather"
             android:title="@string/status_bar_show_weather_title"

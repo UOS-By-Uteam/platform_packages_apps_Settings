@@ -36,10 +36,10 @@
         <intent android:action="android.settings.LICENSE" />
     </PreferenceScreen>
 
-    <!-- CM License information -->
+    <!-- UOS License information -->
     <PreferenceScreen
         android:key="cmlicense"
-        android:title="@string/cmlicense_title" />
+        android:title="@string/uoslicense_title" />
 
     <!-- Terms and conditions -->
     <PreferenceScreen
